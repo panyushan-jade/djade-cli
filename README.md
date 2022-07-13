@@ -1,0 +1,2 @@
+# djade-cli
+custom scaffold
