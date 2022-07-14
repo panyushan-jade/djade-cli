@@ -1,0 +1,23 @@
+{
+  "name": "djade-cli",
+  "version": "1.0.0",
+  "description": "custom scaffold",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/panyushan-jade/djade-cli.git"
+  },
+  "bin":{
+    "djade-cli":"./bin/jade"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/panyushan-jade/djade-cli/issues"
+  },
+  "homepage": "https://github.com/panyushan-jade/djade-cli#readme"
+}
