@@ -10,8 +10,8 @@
     "type": "git",
     "url": "git+https://github.com/panyushan-jade/djade-cli.git"
   },
-  "bin":{
-    "djade-cli":"./bin/jade"
+  "bin": {
+    "djade-cli": "./bin/jade"
   },
   "keywords": [],
   "author": "",
@@ -19,5 +19,11 @@
   "bugs": {
     "url": "https://github.com/panyushan-jade/djade-cli/issues"
   },
-  "homepage": "https://github.com/panyushan-jade/djade-cli#readme"
+  "homepage": "https://github.com/panyushan-jade/djade-cli#readme",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "commander": "^9.4.0",
+    "inquirer": "^8.0.0",
+    "ora": "^5.1.0"
+  }
 }
