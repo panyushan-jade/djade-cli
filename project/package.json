@@ -1,17 +1,14 @@
 {
-  "name": "djade-cli",
-  "version": "1.0.1",
+  "name": <%=name%>,
+  "version": "1.0.0",
   "description": "custom scaffold",
-  "main": "./bin/jade.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/panyushan-jade/djade-cli.git"
-  },
-  "bin": {
-    "djade-cli": "./bin/jade.js"
   },
   "keywords": [],
   "author": "",
@@ -21,12 +18,6 @@
   },
   "homepage": "https://github.com/panyushan-jade/djade-cli#readme",
   "dependencies": {
-    "axios": "^0.27.2",
-    "chalk": "^4.0.1",
-    "commander": "^9.4.0",
-    "download-git-repo": "^3.0.2",
-    "inquirer": "^8.0.0",
-    "ncp": "^2.0.0",
-    "ora": "^5.1.0"
+    
   }
 }

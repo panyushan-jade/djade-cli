@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="UTF-8">
+   <title>炫酷时间~</title>
+</head>
+
+<body>
+    <canvas id="canvas" style="display: block; margin: 50px auto;border:1px solid #ccc"></canvas>
+    <script src="./digit.js"></script>
+    <script>
+        /** @type {HTMLCanvasElement} */
+        const RADIUS = 8 //圆的半径
+        const MARGIN_TOP = 100 //顶部的距离
+        const MARGIN_LEFT = 100 //左边的距离
+        let ball = []  //存放彩色小球
+        let nowDate = new Date() //当前时间
+        let nowHours = nowDate.getHours() //当前时间小时
+        let nowMinutes = nowDate.getMinutes() //当前时间分钟
+        let nowSeconds = nowDate.getSeconds() //当前时间秒数
+        window.onload = function () {
+            var canvas = document.getElementById('canvas');
+            var ctx = canvas.getContext('2d');
+            canvas.width = 1200;
+            canvas.height = 650;
+            const render = () => {
+                var curDate = new Date(); //当前时间
+                var hours = curDate.getHours() //小时 11
+                var minutes = curDate.getMinutes() //分钟  48
+                var seconds = curDate.getSeconds() //秒钟   55
+
+                // var nextDate = new Date(curDate.getTime() + 1000); //当前时间的下一秒
+                // var nextHours = nextDate.getHours() //小时
+                // var nextMinutes = nextDate.getMinutes() //分钟
+                // var nextSeconds = nextDate.getSeconds() //秒钟
+
+                ctx.clearRect(0,0, ctx.canvas.width, ctx.canvas.height);
+                
+                renderNumber(MARGIN_LEFT,MARGIN_TOP,Math.floor(nowHours/10),ctx)
+                renderNumber(MARGIN_LEFT+15*(RADIUS+1),MARGIN_TOP,Math.floor(nowHours%10),ctx)
+                renderNumber(MARGIN_LEFT+30*(RADIUS+1),MARGIN_TOP,10,ctx)
+                renderNumber(MARGIN_LEFT+39*(RADIUS+1),MARGIN_TOP,Math.floor(nowMinutes/10),ctx)
+                renderNumber(MARGIN_LEFT+56*(RADIUS+1),MARGIN_TOP,Math.floor(nowMinutes%10),ctx)
+                renderNumber(MARGIN_LEFT+70*(RADIUS+1),MARGIN_TOP,10,ctx)
+                renderNumber(MARGIN_LEFT+79*(RADIUS+1),MARGIN_TOP,Math.floor(nowSeconds/10),ctx)
+                renderNumber(MARGIN_LEFT+94*(RADIUS+1),MARGIN_TOP,Math.floor(nowSeconds%10),ctx)
+                ball.map( b => {
+                    b.x += b.vx
+                    b.y += b.vy
+                    b.vy += b.g
+                    if( b.y >= 650 - RADIUS){
+                        b.y = 650-RADIUS;
+                        b.vy = -b.vy*0.75
+                    }
+                    renderBalls(b,ctx)
+                    return b
+                })
+        }
+        
+        function timer(timestamp){
+            let curDate = new Date() //当前时间
+            let curHours = curDate.getHours() //当前时间小时
+            let curMinutes = curDate.getMinutes() //当前时间分钟
+            let curSeconds = curDate.getSeconds() //当前时间秒数
+            ball = ball.filter( item => {
+                return item.x + RADIUS > 0 && item.x -RADIUS < 1200
+            })
+           
+            if(Math.floor(curSeconds%10) != Math.floor(nowSeconds%10)){
+                // nowSeconds = curSeconds
+                addBalls(MARGIN_LEFT+94*(RADIUS+1),MARGIN_TOP,Math.floor(curSeconds%10))
+            }
+            console.log('222222',curSeconds,nowSeconds);
+            if(Math.floor(curSeconds/10) != Math.floor(nowSeconds/10)){
+                // nowSeconds = curSeconds
+                addBalls(MARGIN_LEFT+79*(RADIUS+1),MARGIN_TOP,Math.floor(curSeconds/10))
+            }
+            nowSeconds = curSeconds
+            
+            render()
+            window.requestAnimationFrame(timer)
+        }
+        window.requestAnimationFrame(timer);
+        }
+        function addBalls(left,top,num){
+            digit[num].map( (y,yindex) => {
+                y.map( (x,xindex) => {
+                    if(y[xindex] == 1){
+                        ball.push({
+                            x:left+2*(RADIUS+1)*xindex+RADIUS+1,
+                            y:top+2*(RADIUS+1)*yindex+RADIUS+1,
+                            vx:Math.random() < 0.5 ? -Math.ceil(Math.random()*10) : Math.ceil(Math.random()*10),
+                            vy:-5,
+                            g:0.4+Math.random(),
+                            color:'#' + Math.random().toString(16).substr(2, 6).toUpperCase()
+                        })
+                    }
+                })
+            })
+        }
+        function renderBalls(ball,ctx){
+            ctx.fillStyle = ball.color
+            ctx.beginPath();
+            ctx.arc(ball.x,ball.y,RADIUS,0,2.0*Math.PI)
+            ctx.closePath();
+            ctx.fill()
+        }
+        function renderNumber(left,top,num,ctx){
+            digit[num].map( (y,yindex) => {
+                y.map( (x,xindex) => {
+                    if(y[xindex] == 1){
+                        ctx.fillStyle = '#1e1e1e'
+                        ctx.beginPath();
+                        ctx.arc(left+2*(RADIUS+1)*xindex+RADIUS+1,top+2*(RADIUS+1)*yindex+RADIUS+1,RADIUS,0,2.0*Math.PI)
+                        ctx.closePath();
+                        ctx.fill()
+                    }
+                })
+            })
+        }
+        
+    </script>
+</body>
+</html>
